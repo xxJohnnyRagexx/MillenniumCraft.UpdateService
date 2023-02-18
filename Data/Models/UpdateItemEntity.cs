@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LiteDB;
 
-namespace Data.Entities
+namespace Data.Models
 {
     public class UpdateItemEntity
     {
@@ -12,7 +12,7 @@ namespace Data.Entities
         /// <summary>
         /// Gets or sets version of package.
         /// </summary>
-        public string InnerVersion { get; set; }
+        public int Version { get; set; }
 
         /// <summary>
         /// Gets or sets version of game, which would be modified.
@@ -25,8 +25,8 @@ namespace Data.Entities
         public string? Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the final URL, that can be used for downloading of package by client.
+        /// Gets or sets the final Path, that can be used for downloading of package by client.
         /// </summary>
-        public string Url { get; set; }
+        public string Path { get; set; }
     }
 }

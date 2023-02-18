@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Data.Repositories;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Net;
+using UpdateService.Models;
 
 namespace UpdateService
 {
@@ -8,22 +10,37 @@ namespace UpdateService
     [Route("[controller]")]
     public class UpdateController : ControllerBase
     {
-        public UpdateController()
-        {
+        private readonly UpdatesRepository _updatesRepository;
 
+        public UpdateController(UpdatesRepository updatesRepository)
+        {
+            _updatesRepository = updatesRepository;
         }
 
         [HttpGet(Name = "GetUpdate")]
-        public IActionResult GetUpdate()
+        public async Task<IActionResult> GetUpdate()
         {
             string filePath = @"C:\Users\Андрей\Desktop\mods.zip";
             string fileName = "mods.zip";
 
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
 
             return File(fileBytes, "application/force-download", fileName);
         }
 
+        [HttpPost]
+        [Route("update")]
+        public async Task AddUpdate([FromBody] UpdateRequest request)
+        {
+            _updatesRepository.AddNewUpdate(new Data.Models.UpdateItemEntity
+            {
+                Description = request.Description,
+                GameVersion = request.GameVersion,
+                Version = request.Version,
+                Path = request.Path,
+            });
+            _updatesRepository.GetUpdates();
+        }
 
     }
     

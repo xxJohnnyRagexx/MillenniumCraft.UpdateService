@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UpdateService", "UpdateService\UpdateService.csproj", "{AB8F8315-13C5-44F0-8F00-DE69C3A43FEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateService", "UpdateService\UpdateService.csproj", "{AB8F8315-13C5-44F0-8F00-DE69C3A43FEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{5EB9C1C6-B192-44C3-B595-4628F87A7018}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{DCDB5545-F76A-498C-92BE-06B314C7E027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{DCDB5545-F76A-498C-92BE-06B314C7E027}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{AB8F8315-13C5-44F0-8F00-DE69C3A43FEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB8F8315-13C5-44F0-8F00-DE69C3A43FEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB8F8315-13C5-44F0-8F00-DE69C3A43FEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EB9C1C6-B192-44C3-B595-4628F87A7018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EB9C1C6-B192-44C3-B595-4628F87A7018}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EB9C1C6-B192-44C3-B595-4628F87A7018}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EB9C1C6-B192-44C3-B595-4628F87A7018}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DCDB5545-F76A-498C-92BE-06B314C7E027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DCDB5545-F76A-498C-92BE-06B314C7E027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCDB5545-F76A-498C-92BE-06B314C7E027}.Release|Any CPU.ActiveCfg = Release|Any CPU
