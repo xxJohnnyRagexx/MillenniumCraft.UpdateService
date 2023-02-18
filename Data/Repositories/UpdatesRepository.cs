@@ -42,6 +42,5 @@ namespace Data.Repositories
         {
             var r = _updates.Query().Where(x => x.GameVersion == "0.00.0").ToList();
         }
-
     }
 }
