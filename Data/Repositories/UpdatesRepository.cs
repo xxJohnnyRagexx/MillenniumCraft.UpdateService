@@ -3,6 +3,7 @@ using LiteDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,6 +53,11 @@ namespace Data.Repositories
         public async Task<List<UpdateItemEntity>> FetchUpdatesData()
         {
             return _updates.Query().ToList();
+        }
+
+        public UpdateItemEntity FetchUpdate(string version)
+        {
+            return _updates.Query().Where(x => x.GameVersion == version).FirstOrDefault();
         }
     }
 }
