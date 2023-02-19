@@ -29,13 +29,6 @@ namespace UpdateService.Controllers
             return File(fileBytes, "application/force-download", fileName);
         }
 
-        [HttpPost]
-        [Route("update")]
-        public async Task AddUpdate([FromBody] UpdateRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpGet]
         [Route("fetch-updates")]
         public async Task<IEnumerable<UpdateResponse>> FetchUpdates()
