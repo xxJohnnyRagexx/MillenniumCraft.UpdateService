@@ -1,10 +1,26 @@
-﻿namespace UpdatesAdminTool
+﻿using CliFx;
+using CliFx.Attributes;
+using CliFx.Infrastructure;
+
+namespace UpdatesAdminTool
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static async Task<int> Main()
         {
-            Console.WriteLine("Hello, World!");
+             await new CliApplicationBuilder()
+             .AddCommandsFromThisAssembly()
+             .Build().RunAsync();
+            return default;
+        }
+    }
+    [Command]
+    public class AddUpdate : ICommand
+    {
+        public ValueTask ExecuteAsync(IConsole console)
+        {
+            console.Output.WriteLine("hello mazafaka");
+            return default;
         }
     }
 }
