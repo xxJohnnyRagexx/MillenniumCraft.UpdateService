@@ -57,7 +57,7 @@ namespace Data.Repositories
 
         public UpdateItemEntity FetchUpdate(string version)
         {
-            return _updates.Query().Where(x => x.GameVersion == version).FirstOrDefault();
+            return _updates.Query().Where(x => x.GameVersion == version).OrderByDescending(x => x.Version).FirstOrDefault();
         }
     }
 }

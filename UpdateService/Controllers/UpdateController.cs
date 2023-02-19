@@ -8,7 +8,7 @@ using UpdateService.Models;
 namespace UpdateService.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/updates-service")]
     public class UpdateController : ControllerBase
     {
         private readonly UpdatesRepository _updatesRepository;
@@ -18,13 +18,14 @@ namespace UpdateService.Controllers
             _updatesRepository = updatesRepository;
         }
 
-        [HttpGet(Name = "GetUpdate")]
-        public async Task<IActionResult> GetUpdate()
+        [HttpGet]
+        [Route("update")]
+        public async Task<IActionResult> GetUpdate(string gameVersion)
         {
-            string filePath = @"C:\Users\Андрей\Desktop\mods.zip";
-            string fileName = "mods.zip";
+            string fileName = string.Format($"{gameVersion}.zip");
 
-            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            var data = _updatesRepository.FetchUpdate(gameVersion);
+            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(data.Path);
 
             return File(fileBytes, "application/force-download", fileName);
         }
@@ -43,7 +44,7 @@ namespace UpdateService.Controllers
         }
 
         [HttpGet]
-        [Route("FetchUpdates")]
+        [Route("fetch-updates")]
         public async Task<IEnumerable<UpdateItemEntity>> FetchUpdates()
         {
             return await _updatesRepository.FetchUpdatesData();

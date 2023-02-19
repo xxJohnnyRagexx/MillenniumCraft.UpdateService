@@ -20,7 +20,11 @@ namespace UpdateService
 
             builder.Services.AddScoped<UpdatesRepository>();
             builder.Services.AddScoped<ILiteDatabase>(x =>
-                new LiteDatabase(SettingsExtension.BuildDatabaseConnectionString(dbSettings.Filename, dbSettings.ConnectionMode)));
+                new LiteDatabase(
+                    SettingsExtension
+                    .BuildDatabaseConnectionString(
+                        dbSettings.Filename,
+                        dbSettings.ConnectionMode)));
 
             var app = builder.Build();
 
