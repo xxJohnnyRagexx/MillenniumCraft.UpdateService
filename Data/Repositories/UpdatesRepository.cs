@@ -34,13 +34,24 @@ namespace Data.Repositories
 
         public void AddNewUpdate(UpdateItemEntity entity)
         {
-            _updates.Insert(entity);
+            var lastVersion = _updates.Query()
+                .Where(x => x.GameVersion == entity.GameVersion)
+                .OrderByDescending(x => x.Version)
+                .FirstOrDefault();
 
+            if (lastVersion != null)
+            {
+                lastVersion.Path = entity.Path;
+                lastVersion.Version++;
+                _updates.Update(lastVersion);
+            }
+            else
+                _updates.Insert(entity);
         }
 
-        public void GetUpdates()
+        public async Task<List<UpdateItemEntity>> FetchUpdatesData()
         {
-            var r = _updates.Query().Where(x => x.GameVersion == "0.00.0").ToList();
+            return _updates.Query().ToList();
         }
     }
 }

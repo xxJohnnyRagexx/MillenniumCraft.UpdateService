@@ -1,10 +1,11 @@
-﻿using Data.Repositories;
+﻿using Data.Models;
+using Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Net;
 using UpdateService.Models;
 
-namespace UpdateService
+namespace UpdateService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -39,9 +40,15 @@ namespace UpdateService
                 Version = request.Version,
                 Path = request.Path,
             });
-            _updatesRepository.GetUpdates();
+        }
+
+        [HttpGet]
+        [Route("FetchUpdates")]
+        public async Task<IEnumerable<UpdateItemEntity>> FetchUpdates()
+        {
+            return await _updatesRepository.FetchUpdatesData();
         }
 
     }
-    
+
 }

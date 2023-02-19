@@ -1,5 +1,6 @@
 using Data.Repositories;
 using LiteDB;
+using UpdateService.Models;
 
 namespace UpdateService
 {
@@ -8,8 +9,9 @@ namespace UpdateService
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            //var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            var userPath = @"D:\";
+            var userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var dbSettings = builder.Configuration.GetSection("LiteDb").Get<LiteDbSettings>();
+            //var userPath = @"D:\";
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -19,10 +21,8 @@ namespace UpdateService
 
             builder.Services.AddScoped<UpdatesRepository>();
             builder.Services.AddScoped<ILiteDatabase>(x =>
-                new LiteDatabase(
-                    Path.Combine(userPath,
-                    builder.Configuration.GetSection("LiteDb")
-                            .Get<LiteDbSettings>().Filename)));
+                new LiteDatabase(SettingsExtension.BuildDatabaseConnectionString(
+                    Path.Combine(userPath,dbSettings.Filename), dbSettings.ConnectionMode)));
 
             var app = builder.Build();
 
