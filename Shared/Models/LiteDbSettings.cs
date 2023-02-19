@@ -1,4 +1,4 @@
-﻿namespace UpdateService.Models
+﻿namespace Shared.Models
 {
     public class LiteDbSettings
     {

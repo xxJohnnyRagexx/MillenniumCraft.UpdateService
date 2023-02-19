@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpdateService", "UpdateServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{DCDB5545-F76A-498C-92BE-06B314C7E027}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{A1CEAB26-C5D8-4DEF-94DC-A3CB21A09900}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DCDB5545-F76A-498C-92BE-06B314C7E027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCDB5545-F76A-498C-92BE-06B314C7E027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCDB5545-F76A-498C-92BE-06B314C7E027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1CEAB26-C5D8-4DEF-94DC-A3CB21A09900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1CEAB26-C5D8-4DEF-94DC-A3CB21A09900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1CEAB26-C5D8-4DEF-94DC-A3CB21A09900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1CEAB26-C5D8-4DEF-94DC-A3CB21A09900}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
