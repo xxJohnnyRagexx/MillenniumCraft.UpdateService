@@ -3,11 +3,6 @@
     public class UpdateRequest
     {
         /// <summary>
-        /// Gets or sets version of package.
-        /// </summary>
-        public int Version { get; set; }
-
-        /// <summary>
         /// Gets or sets version of game, which would be modified.
         /// </summary>
         public string GameVersion { get; set; }
