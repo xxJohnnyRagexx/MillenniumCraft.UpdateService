@@ -1,4 +1,6 @@
 ﻿using CliFx;
+using CliFx.Attributes;
+using CliFx.Infrastructure;
 
 namespace UpdatesAdminTool
 {
@@ -6,18 +8,19 @@ namespace UpdatesAdminTool
     {
         public static async Task<int> Main()
         {
-            await new CliApplicationBuilder()
+             await new CliApplicationBuilder()
              .AddCommandsFromThisAssembly()
-             .Build()
-             .RunAsync();
-
+             .Build().RunAsync();
+            return default;
         }
     }
+    [Command]
     public class AddUpdate : ICommand
     {
-        public ValueTask ExecuteAsync()
+        public ValueTask ExecuteAsync(IConsole console)
         {
-
+            console.Output.WriteLine("hello mazafaka");
+            return default;
         }
     }
 }
