@@ -1,64 +1,57 @@
 ﻿using Data.Models;
 using LiteDB;
-using LiteDB.Async;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repositories
 {
     public class UpdatesRepository : IUpdatesRepository
     {
-        private readonly ILiteDatabaseAsync _database;
-        private ILiteCollectionAsync<UpdateItemEntity> _updates;
+        private readonly ILiteDatabase _database;
+        private ILiteCollection<UpdateItemEntity> _updates;
 
-        public UpdatesRepository(ILiteDatabaseAsync database)
+        public UpdatesRepository(ILiteDatabase database)
         {
             _database = database;
 
-            if (!_database.CollectionExistsAsync("updates").Result)
+            if (!_database.CollectionExists("updates"))
             {
                 _updates = _database.GetCollection<UpdateItemEntity>("updates");
-                _updates.InsertAsync(new UpdateItemEntity
+                _updates.Insert(new UpdateItemEntity
                 {
                     GameVersion = "0.00.0",
                     Version = 0,
                     Path = "dummypath",
                     Description = "Dummy description",
                 });
-                _updates.EnsureIndexAsync(x => x.GameVersion);
+                _updates.EnsureIndex(x => x.GameVersion);
             }
             else _updates = _database.GetCollection<UpdateItemEntity>("updates");
         }
 
-        public async Task AddNewUpdateAsync(UpdateItemEntity entity)
+        public void AddNewUpdate(UpdateItemEntity entity)
         {
-            var lastVersion = await _updates.Query()
+            var lastVersion = _updates.Query()
                 .Where(x => x.GameVersion == entity.GameVersion)
                 .OrderByDescending(x => x.Version)
-                .FirstOrDefaultAsync();
+                .FirstOrDefault();
 
             if (lastVersion != null)
             {
                 lastVersion.Path = entity.Path;
                 lastVersion.Version++;
-                await _updates.UpdateAsync(lastVersion);
+                _updates.Update(lastVersion);
             }
             else
-                await _updates.InsertAsync(entity);
+                _updates.Insert(entity);
         }
 
-        public async Task<List<UpdateItemEntity>> FetchUpdatesData()
+        public List<UpdateItemEntity> FetchUpdatesData()
         {
-            return await _updates.Query().ToListAsync();
+            return _updates.Query().ToList();
         }
 
-        public async Task<UpdateItemEntity> FetchUpdateAsync(string version)
+        public UpdateItemEntity FetchUpdate(string version)
         {
-            return await _updates.Query().Where(x => x.GameVersion == version).OrderByDescending(x => x.Version).FirstOrDefaultAsync();
+            return _updates.Query().Where(x => x.GameVersion == version).OrderByDescending(x => x.Version).FirstOrDefault();
         }
     }
 }

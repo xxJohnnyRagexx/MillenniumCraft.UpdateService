@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "UpdatesAdminTool": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false
+    },
+    "Профиль 1": {
+      "commandName": "Project"
+    },
+    "Профиль 2": {
+      "commandName": "Executable",
+      "executablePath": "D:\\Workshop\\CodeRepo\\MillenniumCraft\\UpdateService\\UpdatesAdminTool\\bin\\Debug\\net6.0\\UpdatesAdminTool.exe"
+    }
+  }
+}

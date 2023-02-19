@@ -12,7 +12,7 @@ namespace UpdateService.Controllers
     {
         private readonly IUpdatesRepository _updatesRepository;
 
-        public UpdateController(UpdatesRepository updatesRepository)
+        public UpdateController(IUpdatesRepository updatesRepository)
         {
             _updatesRepository = updatesRepository;
         }
@@ -23,7 +23,7 @@ namespace UpdateService.Controllers
         {
             string fileName = string.Format($"{gameVersion}.zip");
 
-            var data = await _updatesRepository.FetchUpdateAsync(gameVersion);
+            var data = _updatesRepository.FetchUpdate(gameVersion);
             byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(data.Path);
 
             return File(fileBytes, "application/force-download", fileName);
@@ -40,7 +40,7 @@ namespace UpdateService.Controllers
         [Route("fetch-updates")]
         public async Task<IEnumerable<UpdateResponse>> FetchUpdates()
         {
-            var r = await _updatesRepository.FetchUpdatesData();
+            var r = _updatesRepository.FetchUpdatesData();
             return r.Select(x => x.ToResponse()).ToList();
         }
 

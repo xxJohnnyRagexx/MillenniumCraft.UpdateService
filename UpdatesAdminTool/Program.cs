@@ -1,26 +1,21 @@
-﻿using CliFx;
-using CliFx.Attributes;
-using CliFx.Infrastructure;
+﻿using Spectre.Console.Cli;
+using UpdatesAdminTool.Commands;
 
 namespace UpdatesAdminTool
 {
     internal class Program
     {
-        public static async Task<int> Main()
+        public static int Main(string[] args)
         {
-             await new CliApplicationBuilder()
-             .AddCommandsFromThisAssembly()
-             .Build().RunAsync();
-            return default;
+            var app = new CommandApp();
+            app.Configure(config =>
+            {
+                config.AddCommand<AddCommand>("add")
+                .WithDescription("Добавляет пакет обновления к раздаче");
+            });
+            return app.Run(args);
+ 
         }
     }
-    [Command]
-    public class AddUpdate : ICommand
-    {
-        public ValueTask ExecuteAsync(IConsole console)
-        {
-            console.Output.WriteLine("hello mazafaka");
-            return default;
-        }
-    }
+
 }
