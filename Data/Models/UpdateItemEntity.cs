@@ -12,7 +12,7 @@ namespace Data.Models
         /// <summary>
         /// Gets or sets version of package.
         /// </summary>
-        public int Version { get; set; }
+        public int Version { get; set; } = 0;
 
         /// <summary>
         /// Gets or sets version of game, which would be modified.
