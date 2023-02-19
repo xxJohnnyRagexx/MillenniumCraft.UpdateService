@@ -1,30 +1,30 @@
-﻿using Data.Models;
-using Data.Repositories;
+﻿using Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel;
-using System.Net;
+using UpdateService.Filters;
 using UpdateService.Models;
 
 namespace UpdateService.Controllers
 {
+    [GeneralExceptionFiler]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/updates-service")]
     public class UpdateController : ControllerBase
     {
-        private readonly UpdatesRepository _updatesRepository;
+        private readonly IUpdatesRepository _updatesRepository;
 
         public UpdateController(UpdatesRepository updatesRepository)
         {
             _updatesRepository = updatesRepository;
         }
 
-        [HttpGet(Name = "GetUpdate")]
-        public async Task<IActionResult> GetUpdate()
+        [HttpGet]
+        [Route("update")]
+        public async Task<IActionResult> GetUpdate(string gameVersion)
         {
-            string filePath = @"C:\Users\Андрей\Desktop\mods.zip";
-            string fileName = "mods.zip";
+            string fileName = string.Format($"{gameVersion}.zip");
 
-            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            var data = await _updatesRepository.FetchUpdateAsync(gameVersion);
+            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(data.Path);
 
             return File(fileBytes, "application/force-download", fileName);
         }
@@ -33,20 +33,15 @@ namespace UpdateService.Controllers
         [Route("update")]
         public async Task AddUpdate([FromBody] UpdateRequest request)
         {
-            _updatesRepository.AddNewUpdate(new Data.Models.UpdateItemEntity
-            {
-                Description = request.Description,
-                GameVersion = request.GameVersion,
-                Version = request.Version,
-                Path = request.Path,
-            });
+            throw new NotImplementedException();
         }
 
         [HttpGet]
-        [Route("FetchUpdates")]
-        public async Task<IEnumerable<UpdateItemEntity>> FetchUpdates()
+        [Route("fetch-updates")]
+        public async Task<IEnumerable<UpdateResponse>> FetchUpdates()
         {
-            return await _updatesRepository.FetchUpdatesData();
+            var r = await _updatesRepository.FetchUpdatesData();
+            return r.Select(x => x.ToResponse()).ToList();
         }
 
     }

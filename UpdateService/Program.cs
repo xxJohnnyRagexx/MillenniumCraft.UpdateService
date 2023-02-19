@@ -1,5 +1,6 @@
 using Data.Repositories;
 using LiteDB;
+using LiteDB.Async;
 using Shared;
 using Shared.Models;
 
@@ -18,9 +19,13 @@ namespace UpdateService
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<UpdatesRepository>();
-            builder.Services.AddScoped<ILiteDatabase>(x =>
-                new LiteDatabase(SettingsExtension.BuildDatabaseConnectionString(dbSettings.Filename, dbSettings.ConnectionMode)));
+            builder.Services.AddScoped<IUpdatesRepository, UpdatesRepository>();
+            builder.Services.AddScoped<ILiteDatabaseAsync>(x =>
+                new LiteDatabaseAsync(
+                    SettingsExtension
+                    .BuildDatabaseConnectionString(
+                        dbSettings.Filename,
+                        dbSettings.ConnectionMode)));
 
             var app = builder.Build();
 

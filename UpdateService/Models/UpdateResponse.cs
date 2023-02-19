@@ -1,7 +1,12 @@
 ﻿namespace UpdateService.Models
 {
-    public class UpdateRequest
+    public class UpdateResponse
     {
+        /// <summary>
+        /// Gets or sets the inner version of update.
+        /// </summary>
+        public int Version { get; set; }
+
         /// <summary>
         /// Gets or sets version of game, which would be modified.
         /// </summary>
