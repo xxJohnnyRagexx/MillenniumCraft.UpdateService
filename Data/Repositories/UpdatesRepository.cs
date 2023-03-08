@@ -15,14 +15,17 @@ namespace Data.Repositories
             if (!_database.CollectionExists("updates"))
             {
                 _updates = _database.GetCollection<UpdateItemEntity>("updates");
-                _updates.Insert(new UpdateItemEntity
+                var dummyEntity = new UpdateItemEntity
                 {
                     GameVersion = "0.00.0",
                     Version = 0,
                     Path = "dummypath",
                     Description = "Dummy description",
-                });
+                };
+                _updates.Insert(dummyEntity);
                 _updates.EnsureIndex(x => x.GameVersion);
+                _updates.Delete(dummyEntity.Id);
+                //code above needed because liteDB don't support creating indexes without data.
             }
             else _updates = _database.GetCollection<UpdateItemEntity>("updates");
         }
@@ -51,7 +54,10 @@ namespace Data.Repositories
 
         public UpdateItemEntity FetchUpdate(string version)
         {
-            return _updates.Query().Where(x => x.GameVersion == version).OrderByDescending(x => x.Version).FirstOrDefault();
+            return _updates.Query()
+                .Where(x => x.GameVersion == version)
+                .OrderByDescending(x => x.Version)
+                .FirstOrDefault();
         }
     }
 }
