@@ -25,7 +25,7 @@ namespace Data.Repositories
                 _updates.Insert(dummyEntity);
                 _updates.EnsureIndex(x => x.GameVersion);
                 _updates.Delete(dummyEntity.Id);
-                //code above needed because liteDB don't support creating indexes without data.
+                //code above needed because liteDB doesn't support creating indexes without data.
             }
             else _updates = _database.GetCollection<UpdateItemEntity>("updates");
         }
